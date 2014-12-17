@@ -8,12 +8,60 @@ defmodule Remix do
 
     children = [
       # Define workers and child supervisors to be supervised
-      # worker(Remix.Worker, [])
+      worker(Remix.Worker, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Remix.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  defmodule Worker do
+    use GenServer
+
+    defmodule State, do: defstruct last_mtime: nil
+
+    def start_link do
+      Process.send_after(__MODULE__, :poll_and_reload, 1000)
+      GenServer.start_link(__MODULE__, %State{}, name: Remix.Worker)
+    end
+
+    def handle_info(:poll_and_reload, state) do
+      current_mtime = get_current_mtime
+
+      if state.last_mtime != current_mtime do
+        state = %State{last_mtime: current_mtime}
+        Mix.Tasks.Compile.Elixir.run(["--ignore-module-conflict"])
+      end
+
+      Process.send_after(__MODULE__, :poll_and_reload, 1000)
+      {:noreply, state}
+    end
+
+
+    def get_current_mtime, do: get_current_mtime("lib")
+
+    def get_current_mtime(dir) do
+      case File.ls(dir) do
+        {:ok, files} -> get_current_mtime(files, [], dir)
+        _            -> nil
+      end
+    end
+
+    def get_current_mtime([], mtimes, _cwd) do
+      mtimes
+      |> Enum.sort
+      |> Enum.reverse
+      |> List.first
+    end
+
+    def get_current_mtime([h | tail], mtimes, cwd) do
+      mtime = case File.dir?("#{cwd}/#{h}") do
+        true  -> get_current_mtime("#{cwd}/#{h}")
+        false -> File.stat!("#{cwd}/#{h}").mtime
+      end
+      get_current_mtime(tail, [mtime | mtimes], cwd)
+    end
   end
 end
