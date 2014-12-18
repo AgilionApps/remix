@@ -23,7 +23,7 @@ defmodule Remix do
     defmodule State, do: defstruct last_mtime: nil
 
     def start_link do
-      Process.send_after(__MODULE__, :poll_and_reload, 1000)
+      Process.send_after(__MODULE__, :poll_and_reload, 10000)
       GenServer.start_link(__MODULE__, %State{}, name: Remix.Worker)
     end
 
