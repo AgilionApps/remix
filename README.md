@@ -31,6 +31,10 @@ defp applications(_all), do: [:logger]
 
 Save or create a new file in the lib directory. Thats it!
 
+## About
+
+Co-authored by the Agilion team during a Brown Bag Beers learning session as an exploration into Elixir, OTP, and recursion.
+
 ## License
 
 Remix source code is released under the Apache 2 License. Check LICENSE file for more information.
