@@ -20,6 +20,7 @@ defmodule Remix.Mixfile do
   defp package do
     [
       licenses: ["Apache 2.0"],
+      contributors: ["Alan Peabody", "Mike Westbom", "Jordan Morano", "Brendan Fey"],
       links: %{
         "GitHub" => "https://github.com/AgilionApps/remix"
       }
