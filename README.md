@@ -31,3 +31,6 @@ defp applications(_all), do: [:logger]
 
 Save or create a new file in the lib directory. Thats it!
 
+## License
+
+Remix source code is released under the Apache 2 License. Check LICENSE file for more information.
