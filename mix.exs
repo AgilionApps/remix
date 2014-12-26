@@ -5,27 +5,30 @@ defmodule Remix.Mixfile do
     [app: :remix,
      version: "0.0.1",
      elixir: "~> 1.0.0",
+     package: package,
+     description: description,
      deps: deps]
   end
 
-  # Configuration for the OTP application
-  #
-  # Type `mix help compile.app` for more information
   def application do
     [applications: [:logger],
      mod: {Remix, []}]
   end
 
-  # Dependencies can be Hex packages:
-  #
-  #   {:mydep, "~> 0.3.0"}
-  #
-  # Or git/path repositories:
-  #
-  #   {:mydep, git: "https://github.com/elixir-lang/mydep.git", tag: "0.1.0"}
-  #
-  # Type `mix help deps` for more examples and options
-  defp deps do
-    []
+  defp deps, do: []
+
+  defp package do
+    [
+      licenses: ["Apache 2.0"],
+      links: %{
+        "GitHub" => "https://github.com/AgilionApps/remix"
+      }
+    ]
+  end
+
+  defp description do
+    """
+    Recompiles mix projects on any change to the lib directory.
+    """
   end
 end
