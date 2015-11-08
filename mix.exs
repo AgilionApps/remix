@@ -3,7 +3,7 @@ defmodule Remix.Mixfile do
 
   def project do
     [app: :remix,
-     version: "0.0.1",
+     version: "0.0.2",
      elixir: "~> 1.0",
      package: package,
      description: description,
@@ -20,7 +20,7 @@ defmodule Remix.Mixfile do
   defp package do
     [
       licenses: ["Apache 2.0"],
-      contributors: ["Alan Peabody", "Mike Westbom", "Jordan Morano", "Brendan Fey"],
+      maintainers: ["Alan Peabody", "Mike Westbom", "Jordan Morano", "Brendan Fey"],
       links: %{
         "GitHub" => "https://github.com/AgilionApps/remix"
       }
