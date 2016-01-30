@@ -54,15 +54,6 @@ defmodule Remix do
       {:noreply, state}
     end
 
-    defp compile_stuffs do
-      case Mix.Project.get.remix[:escript] do
-        true -> Mix.Tasks.Escript.Build.run([])
-        _ -> nil
-      end
-      Mix.Tasks.Compile.Elixir.run(["--ignore-module-conflict"])
-    end
-
-
     def get_current_mtime, do: get_current_mtime("lib")
 
     def get_current_mtime(dir) do
