@@ -32,11 +32,34 @@ defmodule Remix do
 
       if state.last_mtime != current_mtime do
         state = %State{last_mtime: current_mtime}
-        Mix.Tasks.Compile.Elixir.run(["--ignore-module-conflict"])
+        comp_elixir = fn -> Mix.Tasks.Compile.Elixir.run(["--ignore-module-conflict"]) end
+        comp_escript = fn -> Mix.Tasks.Escript.Build.run([]) end
+
+        case Mix.Project.get.remix[:silent] do
+          true ->
+            ExUnit.CaptureIO.capture_io(comp_elixir)
+            if Mix.Project.get.remix[:escript] == true do
+              ExUnit.CaptureIO.capture_io(comp_escript)
+            end
+
+          _ ->
+            comp_elixir.()
+            if Mix.Project.get.remix[:escript] == true do
+              comp_escript.()
+            end
+        end
       end
 
       Process.send_after(__MODULE__, :poll_and_reload, 1000)
       {:noreply, state}
+    end
+
+    defp compile_stuffs do
+      case Mix.Project.get.remix[:escript] do
+        true -> Mix.Tasks.Escript.Build.run([])
+        _ -> nil
+      end
+      Mix.Tasks.Compile.Elixir.run(["--ignore-module-conflict"])
     end
 
 
