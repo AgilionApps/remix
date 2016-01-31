@@ -35,16 +35,16 @@ defmodule Remix do
         comp_elixir = fn -> Mix.Tasks.Compile.Elixir.run(["--ignore-module-conflict"]) end
         comp_escript = fn -> Mix.Tasks.Escript.Build.run([]) end
 
-        case Mix.Project.get.remix[:silent] do
+        case Application.get_all_env(:remix)[:silent] do
           true ->
             ExUnit.CaptureIO.capture_io(comp_elixir)
-            if Mix.Project.get.remix[:escript] == true do
+            if Application.get_all_env(:remix)[:escript] == true do
               ExUnit.CaptureIO.capture_io(comp_escript)
             end
 
           _ ->
             comp_elixir.()
-            if Mix.Project.get.remix[:escript] == true do
+            if Application.get_all_env(:remix)[:escript] == true do
               comp_escript.()
             end
         end
