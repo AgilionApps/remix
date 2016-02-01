@@ -27,6 +27,15 @@ defp applications(_all), do: [:logger]
 
 ```
 
+with escript compilation (in config.exs) and
+silent mode (won't output to iex each time it compiles):
+```elixir
+config :remix,
+  escript: true,
+  silent: true
+```
+If these vars are not set, it will default to verbose (silent: false) and no escript compilation (escript: false).
+
 ## Usage
 
 Save or create a new file in the lib directory. Thats it!
