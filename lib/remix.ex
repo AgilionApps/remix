@@ -33,11 +33,15 @@ defmodule Remix do
       if state.last_mtime != current_mtime do
         state = %State{last_mtime: current_mtime}
         comp_elixir = fn -> Mix.Tasks.Compile.Elixir.run(["--ignore-module-conflict"]) end
+        test_elixir = fn -> Mix.Tasks.Test.run([]) end
         comp_escript = fn -> Mix.Tasks.Escript.Build.run([]) end
 
         case Application.get_all_env(:remix)[:silent] do
           true ->
             ExUnit.CaptureIO.capture_io(comp_elixir)
+            if Application.get_all_env(:remix)[:test] == true do
+              ExUnit.CaptureIO.capture_io(test_elixir)
+            end
             if Application.get_all_env(:remix)[:escript] == true do
               ExUnit.CaptureIO.capture_io(comp_escript)
             end
