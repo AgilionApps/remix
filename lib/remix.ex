@@ -54,7 +54,11 @@ defmodule Remix do
       {:noreply, state}
     end
 
-    def get_current_mtime, do: get_current_mtime("lib")
+    def get_current_mtime, do: get_current_mtime(Application.get_all_env(:remix)[:dirs] || "lib")
+
+    def get_current_mtime(dirs) when is_list(dirs) do
+      get_current_mtime([], Enum.map(dirs, &get_current_mtime/1))
+    end
 
     def get_current_mtime(dir) do
       case File.ls(dir) do
@@ -63,8 +67,11 @@ defmodule Remix do
       end
     end
 
+    def get_current_mtime(dirs, mtimes, cwd \\ nil)
+
     def get_current_mtime([], mtimes, _cwd) do
       mtimes
+      |> List.flatten
       |> Enum.sort
       |> Enum.reverse
       |> List.first
