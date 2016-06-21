@@ -1,6 +1,6 @@
 # Remix
 
-Recompiles mix project on any lib file change/addition.
+Recompiles mix project on any file change/addition (defaults to only watching `lib`).
 
 Intended for development use only.
 
@@ -27,18 +27,28 @@ defp applications(_all), do: [:logger]
 
 ```
 
-with escript compilation (in config.exs) and
-silent mode (won't output to iex each time it compiles):
+## Config
+  * `dirs` (default `"lib"`): A list of directories to search, or binary of a single directory
+  * `escript` (default `false`): includes escript compilation
+  * `silent` (default `false`): suppress output to iex when compiling
+
+Watches all files in project, with escript compilation and silent mode:
 ```elixir
 config :remix,
+  dirs: "./",
   escript: true,
   silent: true
 ```
-If these vars are not set, it will default to verbose (silent: false) and no escript compilation (escript: false).
+
+Watches the `lib` and `foo` directories
+```elixir
+config :remix,
+  dirs: ["lib", "foo"]
+```
 
 ## Usage
 
-Save or create a new file in the lib directory. Thats it!
+Save or create a new file in the lib (or other specified) directory. Thats it!
 
 ## About
 
