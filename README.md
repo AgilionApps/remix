@@ -32,7 +32,8 @@ silent mode (won't output to iex each time it compiles):
 ```elixir
 config :remix,
   escript: true,
-  silent: true
+  silent: true,
+  paths: ["lib"]
 ```
 If these vars are not set, it will default to verbose (silent: false) and no escript compilation (escript: false).
 
