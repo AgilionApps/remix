@@ -14,7 +14,7 @@ defp deps do
 end
 ```
 
-Add add `:remix` as a development only OTP app.
+Add `:remix` as a development only OTP app.
 
 ```elixir
 
