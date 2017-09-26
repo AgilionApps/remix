@@ -5,9 +5,9 @@ defmodule Remix.Mixfile do
     [app: :remix,
      version: "0.0.2",
      elixir: "~> 1.0",
-     package: package,
-     description: description,
-     deps: deps]
+     package: package(),
+     description: description(),
+     deps: deps()]
   end
 
   def application do
