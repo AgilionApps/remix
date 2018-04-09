@@ -2,17 +2,18 @@ defmodule Remix.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :remix,
-     version: "0.0.2",
-     elixir: "~> 1.0",
-     package: package,
-     description: description,
-     deps: deps]
+    [
+      app: :remix,
+      version: "0.0.2",
+      elixir: "~> 1.0",
+      package: package(),
+      description: description(),
+      deps: deps()
+    ]
   end
 
   def application do
-    [applications: [:logger],
-     mod: {Remix, []}]
+    [applications: [:logger], mod: {Remix, []}]
   end
 
   defp deps, do: []
