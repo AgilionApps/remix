@@ -2,17 +2,21 @@ defmodule Remix.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :remix,
-     version: "0.0.2",
-     elixir: "~> 1.0",
-     package: package,
-     description: description,
-     deps: deps]
+    [
+      app: :remix,
+      version: "0.0.4",
+      elixir: "~> 1.6.1",
+      package: package(),
+      description: description(),
+      deps: deps()
+   ]
   end
 
   def application do
-    [applications: [:logger],
-     mod: {Remix, []}]
+    [
+      extra_applications: [:logger],
+      mod: {Remix, []}
+    ]
   end
 
   defp deps, do: []
@@ -20,9 +24,9 @@ defmodule Remix.Mixfile do
   defp package do
     [
       licenses: ["Apache 2.0"],
-      maintainers: ["Alan Peabody", "Mike Westbom", "Jordan Morano", "Brendan Fey"],
+      maintainers: ["Alan Peabody", "Mike Westbom", "Jordan Morano", "Brendan Fey", "Alik Send"],
       links: %{
-        "GitHub" => "https://github.com/AgilionApps/remix"
+        "GitHub" => "https://github.com/aliksend/remix"
       }
     ]
   end
